@@ -217,10 +217,14 @@ function sleep(sleepTime) {
 function start(){
 	var i;
 	var j=0;
-	var k=0;
+	var k=1;
 	while(1){
 		for(i=0; i<18000; i++){
-			HC595_Data_Send(~table2[(k*16+j)*2+1],~table2[(k*16+j)*2],j);
+			var daH = ~table2[(k*16+j)*2+1];
+			var daL = ~table2[(k*16+j)*2];
+			daH >>= j;
+			daL >>= j;
+			HC595_Data_Send(daH,daL,j);
 			j++;
 			if(j==16) j=0;
 			//sleep(1);
