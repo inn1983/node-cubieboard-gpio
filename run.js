@@ -89,18 +89,18 @@ function HC595_Data_Send(daH, daL, han)
 	GPIO.output(CLK_port, GPIO.LOW);
 	
 	for(i=0;i<8;i++){
-		if(((daH)&0x80)!=0) GPIO.output(DI_port, GPIO.HIGH);
+		if(((daH)&0x01)!=0) GPIO.output(DI_port, GPIO.HIGH);
 		else GPIO.output(DI_port, GPIO.LOW);
 		GPIO.output(CLK_port, GPIO.HIGH);
 		GPIO.output(CLK_port, GPIO.LOW);
-		daH <<= 1;
+		daH >>= 1;
 	}
 	for(i=0;i<8;i++){
-		if(((daL)&0x80)!=0) GPIO.output(DI_port, GPIO.HIGH);
+		if(((daL)&0x01)!=0) GPIO.output(DI_port, GPIO.HIGH);
 		else GPIO.output(DI_port, GPIO.LOW);
 		GPIO.output(CLK_port, GPIO.HIGH);
 		GPIO.output(CLK_port, GPIO.LOW);
-		daL <<= 1;
+		daL >>= 1;
 	}
 	
 	GPIO.output(G_port, GPIO.HIGH);
